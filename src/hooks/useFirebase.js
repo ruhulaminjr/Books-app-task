@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import initailizeFirebaseApp from "firebase/firebase.init";
 
@@ -21,7 +23,25 @@ const useFirebase = () => {
   const [authError, setAuthError] = useState(null);
   // firebase auth
   const auth = getAuth();
+  const googleProvider = new GoogleAuthProvider();
   //    user login with email and password
+  const googleLogin = () => {
+    signInWithPopup(auth, googleProvider).then((result) => {
+      axios
+        .post("https://jsonplaceholder.typicode.com/posts", {
+          result,
+        })
+        .then((result) => {
+          if (result.status === 201) {
+            alert("succesfully responses");
+          }
+        });
+      setUser(result.user);
+      console.log(result.user);
+      setAuthLoading(false);
+      setAuthError(null);
+    });
+  };
   const loginUserWithEmail = (email, password) => {
     setAuthLoading(true);
     signInWithEmailAndPassword(auth, email, password)
@@ -81,7 +101,14 @@ const useFirebase = () => {
     });
   }, []);
 
-  return { user, authError, authLoading, registerUser, loginUserWithEmail };
+  return {
+    user,
+    authError,
+    authLoading,
+    registerUser,
+    loginUserWithEmail,
+    googleLogin,
+  };
 };
 
 export default useFirebase;

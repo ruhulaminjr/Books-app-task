@@ -23,7 +23,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const history = useHistory();
-  const { authError, authLoading, registerUser } = useAuth();
+  const { authError, authLoading, registerUser, googleLogin } = useAuth();
   const formSubmit = (e) => {
     e.preventDefault();
     const data = { name, password, email };
@@ -63,7 +63,7 @@ const Register = () => {
                 className="btn-neutral btn-icon"
                 color="default"
                 href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={googleLogin}
               >
                 <span className="btn-inner--icon">
                   <img

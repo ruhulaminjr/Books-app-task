@@ -21,7 +21,7 @@ import {
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const { authError, authLoading, loginUserWithEmail } = useAuth();
+  const { authError, authLoading, loginUserWithEmail, googleLogin } = useAuth();
   const history = useHistory();
   const formSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +62,7 @@ const Login = () => {
                 className="btn-neutral btn-icon"
                 color="default"
                 href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={googleLogin}
               >
                 <span className="btn-inner--icon">
                   <img
