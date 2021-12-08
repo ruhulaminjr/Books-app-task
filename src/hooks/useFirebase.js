@@ -99,6 +99,7 @@ const useFirebase = () => {
       }
       setAuthLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   return {
